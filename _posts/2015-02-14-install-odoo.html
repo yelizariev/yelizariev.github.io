@@ -1,0 +1,39 @@
+---
+published: true
+comments: yes
+layout: post
+title: Install odoo
+tags: [howto]
+category: [odoo, administration]
+---
+
+<p>
+To install odoo on debian or ubuntu system connect to your server via
+ssh and execute commands  step-by-step from <code>install-odoo.sh</code> file of this gist:
+</p>
+
+<p>
+<a href="https://gist.github.com/yelizariev/2abdd91d00dddc4e4fa4">https://gist.github.com/yelizariev/2abdd91d00dddc4e4fa4</a>
+</p>
+
+<p>
+It covers following aspects:
+</p>
+<ul class="org-ul">
+<li>Installation of a stable odoo version. Odoo will start automatically after rebooting server. 
+</li>
+<li>Longpolling support (for instant messaging inside odoo)
+</li>
+<li>Autobackup with backups rotating (to save a disk space)
+</li>
+<li>Nginx port forwarding (to avoid addresses with a port like this: <a href="http://example.com:8069/">http://example.com:8069/</a> )
+</li>
+<li>Multitenancy support (you can create any number databases on a single installation)
+</li>
+</ul>
+
+<p>
+You can also fork the gist and modify it according to your needs, just
+click <code>Fork</code> at gist page and don't forget update <code>GIST</code> variable at
+<code>install-odoo.sh</code> file.
+</p>

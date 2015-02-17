@@ -1,0 +1,30 @@
+<div class="sidebar-module about">
+  <h4>{{ site.locales[site.default_locale].Aboutme }}</h4>
+  <img title="{{site.author}}" src="{{site.aboutme_photo}}" alt="{{site.author}}"/>
+  <p>&mdash; Hi, this is Ivan.</p>
+  <p>I engage in odoo administration and development.</p>
+
+  {% if site.ShowContactInfo == "True" %}
+
+  <p>
+  Feel free to contact me via:<br/>
+
+  {% if site.email != empty %}
+  <a href="mailto:{{site.email}}" title="mailto: {{site.email}}">Email</a>
+  {% endif %}
+  {% if site.skype_username != empty %}
+  / <a href="skype:{{site.skype_username}}?chat" title="send message via skype: {{site.skype_username}}">Skype</a>
+  {% endif %}
+  <!-- 
+  {% if site.github_username != empty %}
+  / <a href="https://github.com/{{site.github_username}}" title="GithubID: {{site.github_username}}">Github</a>
+  {% endif %}
+  -->
+  {% if site.twitter_username %}
+  / <a href="https://twitter.com/{{site.twitter_username}}" title="TwitterID: {{site.twitter_username}}">Twitter</a>
+  {% endif %}
+
+  {% endif %}
+  </p>
+  
+</div>

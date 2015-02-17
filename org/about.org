@@ -1,0 +1,10 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+BEGIN_HTML
+---
+layout: page
+title: About
+comments: yes
+permalink: /about/
+---
+#+END_HTML

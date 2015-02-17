@@ -1,0 +1,54 @@
+# Site settings
+title: Ivan Yelizariev
+tagline: Odoo developer
+email: yelizariev@it-projects.info
+description: > # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: ""#"https://yelizariev.github.io" # the base hostname & protocol for your site
+github_username:  yelizariev
+skype_username:  ivann.exe
+odesk_username: 01d05f689c5d7ce2f3
+
+aboutme_photo: /images/yelizariev.jpg
+google_analytics_key: UA-59844247-1
+disqus_shortname: yelizariev-github-io
+
+### Site setting:
+ShowContactInfo: "True" # Personal Info (twitter,github,email) can be seen on aboutme-sidebar, those info only shown where ShowContactInfo == True
+default_column: "two" # blog style: two columns, if default_column != "two", you will see a one column blog.
+default_locale: "en" # blog sidebar language set, only include: English(en) and Chinese (cn)
+
+### your Blogroll info, only name can shown on the page.
+
+#Blogroll:
+#      - name: Freshman
+#        href: http://yulijia.net/freshman
+#        title: Another Jekyll blog theme
+#      - name: author's website
+#        href: http://yulijia.net/
+#        title: Lijia Yu's website
+
+
+locales:
+    en:
+      Aboutme: "About Me"
+      Archives: "Archives"
+      Blogroll: "Blogroll"
+      Categories: "Categories"
+      Copyright_Notice: "Copyright Notice"
+      Resent_Posts: "Resent Posts"
+      Tags: "Tags"
+      Previous: "Older"
+      Next: "Newer"
+      PostedInCategories: "Posted in"
+      Taggedwith: "and tagged"
+      PostDate: "on "
+
+
+# Build settings
+markdown: kramdown
+exclude: [org]
+paginate: 5

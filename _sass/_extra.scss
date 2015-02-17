@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "EntypoRegular";
+  src: url("/css/font/entypo-webfont.eot") format("eot");
+  src: url("/css/font/entypo-webfont.eot?#iefix") format("embedded-opentype");
+  src: url("/css/font/entypo-webfont.woff") format("woff");
+  src: url("/css/font/entypo-webfont.ttf") format("truetype");
+  src: url("/css/font/entypo-webfont.svg") format("svg") active;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.entypo {
+font-family: "entypoRegular" !important;
+font-size: 1.8em;
+}
+
+a.rss{
+	&,
+	&:hover{
+		color: #000;
+		text-decoration:none;
+	}
+	.text:hover{
+		text-decoration:underline;
+	}
+
+	.entypo{
+		color: #f93;
+		&:hover{
+			text-decoration:none;
+		}
+	}		
+
+
+}
