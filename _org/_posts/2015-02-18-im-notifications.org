@@ -1,0 +1,33 @@
+#+STARTUP: showall indent
+#+BEGIN_HTML
+---
+published: true
+comments: yes
+layout: post
+title: Instant notifications
+tags: [im]
+category: [odoo, module]
+---
+<img class="rounded shadow border" src="/images/odoo/module/im_notif.png"/>
+
+#+END_HTML
+
+My module ~im_notif~ allows to get instant notifications via IM system.
+
+A user is able to select option for notifications:
+
+ * Never
+ * Only IM (if online)
+ * IM (if online) + email (if offline)
+ * IM (if online) + email 
+ * Only Emails
+
+Each notification consist of:
+ * Message type: email, comment or notification
+ * Author's name
+ * Subject with a link to related record (if exists)
+ * Link to inbox
+
+
+Repository: https://github.com/yelizariev/addons-yelizariev/tree/master/im_notif
+

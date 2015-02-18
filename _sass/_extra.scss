@@ -18,7 +18,18 @@ a.rss{
 
 }
 
+.shadow {
+	box-shadow: 10px 10px 5px lighten($brand-color, 50%);
+}
+.border{
+	border:1px solid $brand-color;
+}
+.rounded{
+	border-radius:25px;
+}
 
+
+/*hire me button*/
 .btn {
   display: inline-block;
   margin-bottom: 0;
