@@ -22,7 +22,7 @@ A user is able to select option for notifications:
  * IM (if online) + email 
  * Only Emails
 
-Each notification consist of:
+Each notification consists of:
  * Message type: email, comment or notification
  * Author's name
  * Subject with a link to related record (if exists)

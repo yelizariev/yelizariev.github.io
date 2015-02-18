@@ -28,9 +28,12 @@ layout: default
 
     <article class="post-content">
       {{ post.content }}
-    </article> <hr />
-    
+    </article> 
+{% if post.comments%}<div class="post-comments-count"><a href="{{ post.url | prepend: site.baseurl }}#disqus_thread">0 Comments</a></div>{% endif %}
+<hr />
+
     {% endfor %}
   
   </div>
 </div>
+{% include comments_count.html %}
