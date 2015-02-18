@@ -50,5 +50,4 @@ locales:
 
 # Build settings
 markdown: kramdown
-exclude: [org]
 paginate: 5

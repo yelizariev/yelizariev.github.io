@@ -1,0 +1,16 @@
+@font-face {
+	font-family: "EntypoRegular";
+	src: url("/css/fonts/entypo-webfont.eot") format("eot");
+	src: url("/css/fonts/entypo-webfont.eot?#iefix") format("embedded-opentype");
+	src: url("/css/fonts/entypo-webfont.woff") format("woff");
+	src: url("/css/fonts/entypo-webfont.ttf") format("truetype");
+	src: url("/css/fonts/entypo-webfont.svg") format("svg") active;
+	font-weight: normal;
+	font-style: normal;
+}
+
+.entypo {
+	font-family: "entypoRegular" !important;
+	font-size: 1.8em;
+}
+
