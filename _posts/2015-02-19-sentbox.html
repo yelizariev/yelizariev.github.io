@@ -1,0 +1,38 @@
+---
+published: true
+comments: yes
+layout: post
+title: Sentbox
+tags: [mail]
+category: [odoo, module]
+---
+
+<p>
+Sometime odoo users want to have usual "Sent" mail box.
+</p>
+
+<p>
+To implement it I've added new computed field:
+</p>
+
+{% highlight python %}
+self.sent = len(self.notified_partner_ids) > 1 \
+            or len(self.notified_partner_ids)==1 \
+            and self.notified_partner_ids[0].id != self.author_id.id
+{% endhighlight %}
+
+<p>
+This field is need to filter out some messages (notifications) which don't have recepients.
+</p>
+
+<img class="rounded shadow border" src="/images/odoo/module/mail_sent.png"/>
+
+<p>
+This menu shows messages in threads (like in other menus), but shows
+only sent messages:
+</p>
+<img class="rounded shadow border" src="/images/odoo/module/mail_sent2.png"/>
+
+<p>
+Repository: <a href="https://github.com/yelizariev/addons-yelizariev/tree/master/mail_sent">https://github.com/yelizariev/addons-yelizariev/tree/master/mail_sent</a>
+</p>
