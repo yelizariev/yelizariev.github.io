@@ -28,7 +28,7 @@ The module adds automatic ribbons:
  * BACKORDERED -- stock is 0 and the status is Normal,
 
 It also puts ribbons text at the product page and disables "Add to
-cart" future if product is discontinued.
+cart" feature if product is discontinued.
 
 #+BEGIN_HTML
 <img class="rounded shadow border" src="/images/odoo/module/website_sale_stock_status2.png"/>
