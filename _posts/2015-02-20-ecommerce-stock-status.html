@@ -1,0 +1,45 @@
+---
+published: true
+comments: yes
+layout: post
+title: Stock status in eCommerce
+tags: [ecommerce, stock]
+category: [odoo, module]
+---
+
+<p>
+Unfortunately, odoo doesn't consider stock status of a products in
+eCommerce and customers are able to  order out-of-stock items.
+</p>
+
+<p>
+But on the other hand, the strength of the odoo is module structure to
+make modifications easily.
+</p>
+
+<p>
+So, I've made a small module <code>website_sale_stock_status</code> to fix this issue.
+</p>
+
+<img class="rounded shadow border" src="/images/odoo/module/website_sale_stock_status.png"/>
+
+<p>
+The module adds automatic ribbons:
+</p>
+<ul class="org-ul">
+<li>DISCONTINUED &#x2013;  stock is 0 and the status is End of Life or Obsolete.
+</li>
+<li>BACKORDERED &#x2013; stock is 0 and the status is Normal,
+</li>
+</ul>
+
+<p>
+It also puts ribbons text at the product page and disables "Add to
+cart" future if product is discontinued.
+</p>
+
+<img class="rounded shadow border" src="/images/odoo/module/website_sale_stock_status2.png"/>
+
+<p>
+Repository: <a href="https://github.com/yelizariev/addons-yelizariev/tree/master/website_sale_stock_status">https://github.com/yelizariev/addons-yelizariev/tree/master/website_sale_stock_status</a>
+</p>
