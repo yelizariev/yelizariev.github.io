@@ -34,5 +34,8 @@ cart" future if product is discontinued.
 <img class="rounded shadow border" src="/images/odoo/module/website_sale_stock_status2.png"/>
 #+END_HTML
 
+By default, stock status is updated every hour. It can be changed at
+Settings/Technical/Automation/Scheduled Actions
+
 Repository: https://github.com/yelizariev/addons-yelizariev/tree/master/website_sale_stock_status
 
