@@ -1,0 +1,40 @@
+#+STARTUP: showall indent nolatexpreview
+#+OPTIONS: ^:nil toc:nil num:nil
+#+BEGIN_HTML
+---
+published: true
+comments: yes
+layout: post
+title: Some integration of a company and its contacts
+tags: [base]
+category: [odoo, module]
+---
+#+END_HTML
+* res_partner_company_stat 
+In odoo 8.0 new smart buttons were introduced:
+#+BEGIN_HTML
+<img class="rounded shadow border" src="/images/odoo/module/res_partner_company.png"/>
+#+END_HTML
+
+Some users expects, that in a company's form these buttons will search
+information about tasks, invoices, meetings etc. for whole company. 
+But out-of-box buttons work only with records that are attached to
+company and not to company's contacts.
+
+I have made module =res_partner_company_stat= to fix this issue.
+E.g. in "Calls" smart button you will get calls both for company and for
+company's contacts.
+
+Repository: https://github.com/yelizariev/addons-yelizariev/tree/master/res_partner_company_stat
+
+* res_partner_company_search 
+Another issue is search in contacts. With my module =res_partner_company_search= contacts are searched by company's fields also. E.g.  you search contacts with a tag "Veterinary" and you get "child1" even if it doesn't have this tag, because his company does.
+#+BEGIN_HTML
+<img class="rounded shadow border" src="/images/odoo/module/res_partner_company2.png"/>
+#+END_HTML
+
+(Out-of-box you will get in search results parent2 and child2 only).
+
+
+Repository: https://github.com/yelizariev/addons-yelizariev/tree/master/res_partner_company_search
+
