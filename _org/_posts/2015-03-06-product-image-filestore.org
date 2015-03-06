@@ -1,0 +1,87 @@
+#+STARTUP: showall indent nolatexpreview
+#+OPTIONS: ^:nil toc:nil num:nil
+#+BEGIN_HTML
+---
+published: true
+comments: yes
+layout: post
+title: Store product images on a disk
+tags: [product]
+category: [odoo, module]
+---
+#+END_HTML
+
+Odoo keeps product images in database. It can cause a problem if you
+have a lot of products with images and use @@html:<a href="{% post_url 2015-02-14-install-odoo %}">@@daily backup@@html:</a>@@
+
+
+To store product images in filestore, I have created a module
+=product_image_filestore=. It uses =ir.attachment= table to store
+product images.
+
+Repository: https://github.com/yelizariev/addons-yelizariev/tree/master/product_image_filestore
+
+* Warning  
+  Installation or deleting this module will cause lost of your current
+  product images. Before doing it you have to export images from all
+  product variants and then import it back after installation or
+  deleting the module.
+
+* Export images  
+  Open =Products= menu, delete filters, select all products and click =More= / =Export=
+
+#+BEGIN_HTML
+<img class="rounded shadow border" src="/images/odoo/module/product_image_filestore-1.png"/>
+#+END_HTML
+
+  Then add =Image= field to export and click =Export to file=.
+#+BEGIN_HTML
+<img class="rounded shadow border" src="/images/odoo/module/product_image_filestore-2.png"/>
+#+END_HTML
+
+  Do the same for Product variants:
+  *  Open =Product Variants= menu, delete filters, select all products and click =More= / =Export= (see @@html:<a href="/images/odoo/module/product_image_filestore-4.png">@@screenshot@@html:</a>@@).
+  *  Add =Variant Image= field to export and click =Export to file= (see @@html:<a href="/images/odoo/module/product_image_filestore-5.png">@@screenshot@@html:</a>@@).
+
+
+* Import images
+  After instaling or uninstalling module import images back.  Open
+  =Products= menu and click =Import= url. Then open your
+  =product.template.csv=, click =Validate= and =Import=.
+
+#+BEGIN_HTML
+<img class="rounded shadow border" src="/images/odoo/module/product_image_filestore-3.png"/>
+#+END_HTML
+
+   
+  Do the same for with menu =Product Variants= and =product.product.csv= file (see @@html:<a href="/images/odoo/module/product_image_filestore-6.png">@@screenshot@@html:</a>@@)
+
+* issue "field larger than field limit (131072)"
+  During importing images, you can get error "field larger than field
+  limit (131072)". It's a default restriction of a csv module. To fix
+  it open file =openerp/tools/convert.py= and add
+  =csv.field_size_limit(sys.maxsize)= after imports of a sys and csv
+  modules. Like this:
+
+#+BEGIN_HTML
+{% highlight python %}
+
+import cStringIO
+import csv
+import logging
+import os.path
+import pickle
+import re
+import sys
+csv.field_size_limit(sys.maxsize)
+
+# for eval context:
+import time
+
+{% endhighlight %}
+#+END_HTML
+
+* Note for uninstalling
+
+  After unintalling this module you also have to update =product=
+  module. This cause updating of all dependent modules.
