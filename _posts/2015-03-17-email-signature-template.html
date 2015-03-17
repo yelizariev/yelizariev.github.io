@@ -1,0 +1,100 @@
+---
+published: true
+comments: yes
+layout: post
+title: Templates for user's email signature
+tags: [base]
+category: [odoo, module]
+---
+
+<p>
+If you have a lot of users and you want to control their email
+signature, then signature template is what you need. With my module
+<code>res_users_signature</code> you can create signature template and apply one
+for your users.
+</p>
+
+<img class="rounded shadow border" src="/images/odoo/module/res_users_signature.png"/>
+
+<p>
+A user can choose his signature template himself at Preference window (which
+is opened via top right hand menu).
+</p>
+
+<img class="rounded shadow border" src="/images/odoo/module/res_users_signature-2.png"/>
+
+<p>
+Technically the module make minimal changes at user model. It just put new
+value to <code>signature</code> field at <code>res.users</code> model.
+</p>
+
+<p>
+The module updates signature if there are changes at basic users
+models (<code>res.users</code>, <code>res.partner</code>, <code>hr.employee</code>). E.g. if a user
+change his phone number, then his signature would be updated. Also,
+you can update all signatures manually.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Images</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+You can use base64-encoded images at signature template: 
+</p>
+
+{% highlight xml %}
+<img src="data:image/png;base64,${user.company_id.logo_web}"/>
+<img src="data:image/png;base64,ABCDE....12345="/>
+{% endhighlight %}
+
+<p>
+I've found, that some email clients doesn't show such images. In order
+to fix it, the module overwrite <code>build_email</code> function at
+<code>ir.mail_server</code> model. The module make attachments from base64 images
+at email body.
+</p>
+
+{% highlight python %}
+class ir_mail_server(models.Model):
+    _inherit = "ir.mail_server"
+
+    def build_email(self, email_from, email_to, subject, body, email_cc=None, email_bcc=None, reply_to=False,
+               attachments=None, message_id=None, references=None, object_id=False, subtype='plain', headers=None,
+               body_alternative=None, subtype_alternative='plain'):
+        """ copy-pasted from openerp/addons/base/ir/ir_mail_server.py::build_email """
+
+        ftemplate = '__image-%s__'
+        fcounter = 0
+        attachments = attachments or []
+
+        pattern = re.compile(r'"data:image/png;base64,[^"]*"')
+        pos = 0
+        new_body = ''
+        while True:
+            match = pattern.search(body, pos)
+            if not match:
+                break
+            s = match.start()
+            e = match.end()
+            data = body[s+len('"data:image/png;base64,'):e-1]
+            new_body += body[pos:s]
+
+            fname = ftemplate % fcounter
+            fcounter += 1
+            attachments.append( (fname, base64.b64decode(data)) )
+
+            new_body += '"cid:%s"' % fname
+            pos = e
+
+        new_body += body[pos:]
+        body = new_body
+
+        //...
+{% endhighlight %}
+
+
+<p>
+Repository: <a href="https://github.com/yelizariev/addons-yelizariev/tree/master/res_users_signature">https://github.com/yelizariev/addons-yelizariev/tree/master/res_users_signature</a>
+</p>
+</div>
+</div>
