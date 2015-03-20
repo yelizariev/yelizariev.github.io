@@ -5,7 +5,7 @@ published: true
 comments: yes
 layout: post
 title: Last viewed records
-tags: [web,dev-tools]
+tags: [web,dev-tools,OCA]
 category: [odoo, module]
 ---
 #+END_HTML
@@ -42,5 +42,9 @@ to page where you want to test something.
 
 Enjoy!
 
-Repository: https://github.com/yelizariev/addons-yelizariev/tree/master/web_last_viewed_records
+Repository: https://github.com/yelizariev/addons-yelizariev/tree/master/_web_last_viewed_records
 
+
+*Update 20.03.2015*. The module is now maintained by OCA!
+
+Check out newest version here: https://github.com/OCA/web/tree/8.0/web_last_viewed_records
