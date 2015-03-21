@@ -37,5 +37,5 @@ cart" feature if product is discontinued.
 By default, stock status is updated every hour. It can be changed at
 Settings/Technical/Automation/Scheduled Actions
 
-Repository: https://github.com/yelizariev/addons-yelizariev/tree/master/website_sale_stock_status
+Repository: https://github.com/yelizariev/addons-yelizariev/tree/8.0/website_sale_stock_status
 

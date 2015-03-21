@@ -91,5 +91,5 @@ class ir_mail_server(models.Model):
 #+END_HTML
 
 
-Repository: https://github.com/yelizariev/addons-yelizariev/tree/master/res_users_signature
+Repository: https://github.com/yelizariev/addons-yelizariev/tree/8.0/res_users_signature
 

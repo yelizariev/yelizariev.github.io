@@ -35,5 +35,5 @@ only sent messages:
 <img class="rounded shadow border" src="/images/odoo/module/mail_sent2.png"/>
 #+END_HTML
 
-Repository: https://github.com/yelizariev/addons-yelizariev/tree/master/mail_sent
+Repository: https://github.com/yelizariev/addons-yelizariev/tree/8.0/mail_sent
 

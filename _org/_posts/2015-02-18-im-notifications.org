@@ -29,5 +29,5 @@ Each notification consists of:
  * Link to inbox
 
 
-Repository: https://github.com/yelizariev/addons-yelizariev/tree/master/im_notif
+Repository: https://github.com/yelizariev/addons-yelizariev/tree/8.0/im_notif
 

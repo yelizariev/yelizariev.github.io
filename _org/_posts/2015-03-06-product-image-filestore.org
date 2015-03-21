@@ -19,7 +19,7 @@ To store product images in filestore, I have created a module
 =product_image_filestore=. It uses =ir.attachment= table to store
 product images.
 
-Repository: https://github.com/yelizariev/addons-yelizariev/tree/master/product_image_filestore
+Repository: https://github.com/yelizariev/addons-yelizariev/tree/8.0/product_image_filestore
 
 * Warning  
   Installation or deleting this module will cause lost of your current
