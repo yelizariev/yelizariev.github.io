@@ -13,7 +13,7 @@ category: [odoo, module]
 
 #+END_HTML
 
-The module adds skype field to form. When you click on skype address
+The module adds skype field to form. When you click on skype address,
 chat window is opened.
 
 * For developers
