@@ -1,0 +1,29 @@
+#+STARTUP: showall indent
+#+OPTIONS: ^:nil toc:nil num:nil
+#+BEGIN_HTML
+---
+published: true
+comments: yes
+layout: post
+title: Skype field in partner form
+tags: [base]
+category: [odoo, module]
+---
+<img class="rounded shadow border" src="/images/odoo/module/res_partner_skype.png"/>
+
+#+END_HTML
+
+The module adds skype field to form. When you click on skype address
+chat window is opened.
+
+* For developers
+Example of usage in views:
+
+#+BEGIN_HTML
+{% highlight python %}
+<field name="skype" widget="skype" options="{'type':'call', 'video':0}"/>
+{% endhighlight %}
+#+END_HTML
+
+Repository: https://github.com/yelizariev/addons-yelizariev/tree/8.0/res_partner_skype
+
