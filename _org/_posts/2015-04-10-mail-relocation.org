@@ -22,7 +22,7 @@ to move (attach) mail to task form. I've made module
 =mail_move_message= to do it.
 
 Technically, the module update fields =res_id= and =model= of
-=mail.message= modules. It also, keep original values to allow to move
+=mail.message= modules. It also keeps original values to allow to move
 everything back.
 
 A usage guide with screenshots can be found here: https://apps.odoo.com/apps/modules/8.0/mail_move_message/
