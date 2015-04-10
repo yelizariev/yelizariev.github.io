@@ -1,4 +1,5 @@
 #+STARTUP: showall indent
+#+OPTIONS: ^:nil toc:nil num:nil
 #+BEGIN_HTML
 ---
 published: true
@@ -31,3 +32,9 @@ Each notification consists of:
 
 Repository: https://github.com/yelizariev/addons-yelizariev/tree/8.0/im_notif
 
+* Uninstalling
+
+Before uninstalling you have to find all partners with IM values in
+field "Receive Inbox Notifications by Email" and change it to standard
+"Never" or "Only emails". ("Only emails" is renamed by module from
+"All Message")
