@@ -1,0 +1,39 @@
+#+STARTUP: showall indent nolatexpreview
+#+OPTIONS: ^:nil toc:nil num:nil
+#+BEGIN_HTML
+---
+published: true
+comments: yes
+layout: post
+title: Mail relocation
+tags: [mail]
+category: [odoo, module]
+---
+#+END_HTML
+
+Odoo has a good integration with email. It allows to have a discussion
+with a customer attached to some record (task, lead, invoice etc.).
+
+In the main, your customer don't know about this and can send emails
+(e.g. about a task) to your personal alias
+(e.g. admin@yourcompany). It could not be a problem, if you work on
+task alone. But if you need to share email to colleagues, it's better
+to move (attach) mail to task form. I've made module
+=mail_move_message= to do it.
+
+Technically, the module update fields =res_id= and =model= of
+=mail.message= modules. It also, keep original values to allow to move
+everything back.
+
+A usage guide with screenshots can be found here: https://apps.odoo.com/apps/modules/8.0/mail_move_message/
+
+It's not mentioned in module's description, but if you move a message,
+then all messages in a thread below the message would also be moved
+to a new location.
+
+Repository: https://github.com/yelizariev/addons-yelizariev/tree/8.0/mail_move_message
+
+* Uninstalling
+
+  Please note, that after uninstalling the module, all infromation
+  about original location of moved messages will be lost.
