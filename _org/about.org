@@ -8,3 +8,17 @@ comments: yes
 permalink: /about/
 ---
 #+END_HTML
+
+This site is about my works in odoo. 
+
+Most of my modules I've made for my customers or for myself. I
+realised soon, that these modules can be helpfull for other
+people. So, I started this blog and I spend some time to provide
+illustrated description for modules, which is actually not needed neither for
+me nor for my customers.
+
+All my modules are opensource*. But if you like to support my efforts
+you are welcome to pay for any of my modules in store:
+https://apps.odoo.com/apps/modules?price=&author=Ivan+Yelizariev
+
+/* I don't publish only modules with  a private data/
