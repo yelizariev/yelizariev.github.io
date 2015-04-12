@@ -21,4 +21,4 @@ All my modules are opensource*. But if you like to support my efforts
 you are welcome to pay for any of my modules in store:
 https://apps.odoo.com/apps/modules?price=&author=Ivan+Yelizariev
 
-/* I don't publish only modules with  a private data/
+/* I don't publish modules with a private data/
