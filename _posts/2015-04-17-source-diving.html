@@ -1,0 +1,210 @@
+---
+published: true
+comments: yes
+layout: post
+title: Source diving
+tags: []
+category: [odoo, development]
+---
+<img style="width:30%;float:right;" src="/images/odoo/development/source-diving-1.jpg"/>
+
+<p>
+Odoo is opensource and has module structure. So, for the question 
+</p>
+
+<p>
+<b>&#x2013; Is it possible to change <i>this</i> in Odoo?</b>
+</p>
+
+<p>
+the only answer is:
+</p>
+
+<p>
+<b>&#x2013; Yes, everything is possible to do in Odoo.</b>
+</p>
+
+<p>
+OK, but how to do <i>that</i>? Where to find an instruction of how to implement some particular feature?
+</p>
+
+<p>
+Let's take an example. Imagine we need a custom link for product at
+website shop. By default link is generated from <code>Name</code> field, but you
+need to make it be generated from new <code>Name SEO</code> field.
+</p>
+
+<p>
+i.e. instead of this link:
+</p>
+<blockquote>
+<p>
+/shop/product/ipad-mini-8
+</p>
+</blockquote>
+<p>
+there should be this one: 
+</p>
+<blockquote>
+<p>
+/shop/product/super-seo-link-for-ipad-mini-8
+</p>
+</blockquote>
+<p>
+where product has fields:
+</p>
+<blockquote>
+<p>
+Name: iPad Mini
+</p>
+
+<p>
+Name SEO: Super SEO link for iPad Mini
+</p>
+</blockquote>
+
+
+<p>
+How to do that? Can we find the answer in <a href="https://www.odoo.com/documentation/8.0/">documentation</a>? I believe, it
+doesn't have an answer.
+</p>
+
+<p>
+So, let's try to do it ourself. We have Odoo source, so let's try to
+find a solution there.
+</p>
+
+<p>
+In our example we can start seach by <code>/shop/product/</code>:
+</p>
+
+{% highlight python %}
+./addons/website_sale_options/controllers/main.py:10:    @http.route(['/shop/product/<model("product.template"):product>'], type='http', auth="public", website=True)
+./addons/website_sale/models/product.py:112:            res[product.id] = "/shop/product/%s" % (product.id,)
+./addons/website_sale/models/product.py:186:            res[product.id] = "/shop/product/%s" % (product.product_tmpl_id.id,)
+./addons/website_sale/controllers/main.py:230:    @http.route(['/shop/product/<model("product.template"):product>'], type='http', auth="public", website=True)
+./addons/website_sale/controllers/main.py:276:    @http.route(['/shop/product/comment/<int:product_template_id>'], type='http', auth="public", methods=['POST'], website=True)
+./addons/website_sale/controllers/main.py:850:        return request.redirect("/shop/product/%s?enable_editor=1" % slug(product.product_tmpl_id))
+{% endhighlight %}
+
+<p>
+These lines from <code>addons/website_sale/controllers/main.py</code> looks interesting:
+</p>
+{% highlight python %}
+    @http.route(['/shop/product/<model("product.template"):product>'], type='http', auth="public", website=True)
+    def product(self, product, category='', search='', **kwargs):
+{% endhighlight %}
+<img style="width:30%;float:left;" src="/images/odoo/development/source-diving-2.jpg"/>
+
+<p>
+What about <code>&lt;model("product.template"):product&gt;</code>? What is it? How it
+works? There should be a way for you to find the answer in
+source. Maybe you know about <code>werkzeug</code> library, maybe you know about
+<code>slug</code> function, maybe you know about <code>ir.http</code> model. So there should
+be a keyword to search. At the worst you can search by "model"
+keyword OR look through whole <code>website</code> module.
+</p>
+
+<div style="clear:both">
+<p>
+OK, I found the answer in <code>addons/website/models/ir_http.py</code>. Function <code>to_url</code> is what we need.
+</p>
+</div>
+
+{% highlight python %}
+from openerp.addons.website.models.website import slug, url_for, _UNSLUG_RE
+
+#..
+
+class ir_http(orm.AbstractModel):
+    _inherit = 'ir.http'
+
+    rerouting_limit = 10
+    geo_ip_resolver = None
+
+    def _get_converters(self):
+        return dict(
+            super(ir_http, self)._get_converters(),
+            model=ModelConverter,
+            page=PageConverter,
+        )
+
+
+#..
+
+class ModelConverter(ir.ir_http.ModelConverter):
+    def __init__(self, url_map, model=False, domain='[]'):
+        super(ModelConverter, self).__init__(url_map, model)
+        self.domain = domain
+        self.regex = _UNSLUG_RE.pattern
+
+    def to_url(self, value):
+        return slug(value)
+
+#...
+
+{% endhighlight %}
+
+<p>
+where slug function is from <code>addons/website/models/website.py</code>
+</p>
+{% highlight python %}
+def slug(value):
+    if isinstance(value, orm.browse_record):
+        # [(id, name)] = value.name_get()
+        id, name = value.id, value.display_name
+    else:
+        # assume name_search result tuple
+        id, name = value
+    slugname = slugify(name or '').strip().strip('-')
+    if not slugname:
+        return str(id)
+    return "%s-%d" % (slugname, id)
+{% endhighlight %}
+<img style="margin:0 0 32px 0;" src="/images/odoo/development/source-diving-3.jpg"/>
+
+
+<p>
+So, that is. To make a custom link, we have to inherit ModelConverter
+and modify <code>to_url</code> function. Something like that:
+</p>
+
+
+{% highlight python %}
+from openerp.addons.website.models.website import slugify
+from openerp.addons.website.models.ir_http import ModelConverter
+
+class ModelConverterCustom(ModelConverter):
+    def to_url(self, value):
+        if isinstance(value, orm.browse_record) and hasattr(value, 'name_seo'):
+            id, name = value.id, value.name_seo
+            slugname = slugify(name or '').strip().strip('-')
+            if slugname:
+                return "%s-%d" % (slugname, id)
+        return super(ModelConverterCustom, self).to_url(value)
+
+class ir_http(orm.AbstractModel):
+    _inherit = 'ir.http'
+
+    def _get_converters(self):
+        res = super(ir_http, self)._get_converters(),
+        res['model'] = ModelConverterCustom
+        return res
+
+{% endhighlight %}
+<div class="clearfix">
+<img style="margin-top:0;width:35%;float:right;" src="/images/odoo/development/source-diving-4.jpg"/>
+
+<p>
+This is the way I use in odoo development: 
+</p>
+
+<ul class="org-ul">
+<li>Dive into source
+</li>
+<li>Figure out how it works
+</li>
+<li>Create module to make changes you need
+</li>
+</ul>
+</div>
