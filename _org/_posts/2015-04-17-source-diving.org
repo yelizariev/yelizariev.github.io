@@ -48,7 +48,7 @@ doesn't have an answer.
 So, let's try to do it ourself. We have Odoo source, so let's try to
 find a solution there.
 
-In our example we can start seach by =/shop/product/=:
+In our example we can start from seaching by =/shop/product/=:
 
 #+BEGIN_HTML
 {% highlight python %}
