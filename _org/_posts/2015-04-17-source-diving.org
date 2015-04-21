@@ -162,7 +162,7 @@ class ir_http(orm.AbstractModel):
     _inherit = 'ir.http'
 
     def _get_converters(self):
-        res = super(ir_http, self)._get_converters(),
+        res = super(ir_http, self)._get_converters()
         res['model'] = ModelConverterCustom
         return res
 
