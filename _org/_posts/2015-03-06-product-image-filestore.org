@@ -81,6 +81,8 @@ import time
 {% endhighlight %}
 #+END_HTML
 
+*UPD* I have made module that do it https://github.com/yelizariev/addons-yelizariev/tree/8.0/import_csv_fix_field_limit
+
 * Note for uninstalling
 
   After unintalling this module you also have to update =product=
