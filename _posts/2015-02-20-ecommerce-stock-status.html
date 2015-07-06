@@ -11,32 +11,32 @@ category: [odoo, module]
 Unfortunately, odoo doesn't consider stock status of a products in
 eCommerce and customers are able to  order out-of-stock items.
 </p>
-
 <p>
 But on the other hand, the strength of the odoo is module structure to
 make modifications easily.
 </p>
-
 <p>
 So, I've made a small module <code>website_sale_stock_status</code> to fix this issue.
 </p>
+
 
 <img class="rounded shadow border" src="/images/odoo/module/website_sale_stock_status.png"/>
 
 <p>
 The module adds automatic ribbons:
-</p>
-<ul class="org-ul">
-<li>DISCONTINUED &#x2013;  stock is 0 and the status is End of Life or Obsolete.
+</p><ul>
+<li>DISCONTINUED &ndash;  stock is 0 and the status is End of Life or Obsolete.
 </li>
-<li>BACKORDERED &#x2013; stock is 0 and the status is Normal,
+<li>BACKORDERED &ndash; stock is 0 and the status is Normal,
 </li>
 </ul>
+
 
 <p>
 It also puts ribbons text at the product page and disables "Add to
 cart" feature if product is discontinued.
 </p>
+
 
 <img class="rounded shadow border" src="/images/odoo/module/website_sale_stock_status2.png"/>
 
@@ -44,7 +44,6 @@ cart" feature if product is discontinued.
 By default, stock status is updated every hour. It can be changed at
 Settings/Technical/Automation/Scheduled Actions
 </p>
-
 <p>
-Repository: <a href="https://github.com/yelizariev/addons-yelizariev/tree/8.0/website_sale_stock_status">https://github.com/yelizariev/addons-yelizariev/tree/8.0/website_sale_stock_status</a>
+Repository: <a href="https://github.com/yelizariev/addons-yelizariev/tree/8.0/website_sale_stock_status">https://github.com/yelizariev/addons-yelizariev/tree/8.0/website\_sale\_stock\_status</a>
 </p>

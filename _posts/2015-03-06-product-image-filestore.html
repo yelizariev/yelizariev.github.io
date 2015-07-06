@@ -9,87 +9,90 @@ category: [odoo, module]
 
 <p>
 Odoo keeps product images in database. It can cause a problem if you
-have a lot of products with images and use <a href="{% post_url 2015-02-14-install-odoo %}">daily backup</a>
+have a lot of products with images and use @@html:&lt;a href="{% post_url 2015-02-14-install-odoo %}"&gt;@@daily backup@@html:&lt;/a&gt;@@
 </p>
-
 
 <p>
 To store product images in filestore, I have created a module
 <code>product_image_filestore</code>. It uses <code>ir.attachment</code> table to store
 product images.
 </p>
-
 <p>
-Repository: <a href="https://github.com/yelizariev/addons-yelizariev/tree/8.0/product_image_filestore">https://github.com/yelizariev/addons-yelizariev/tree/8.0/product_image_filestore</a>
+Repository: <a href="https://github.com/yelizariev/addons-yelizariev/tree/8.0/product_image_filestore">https://github.com/yelizariev/addons-yelizariev/tree/8.0/product\_image\_filestore</a>
 </p>
 
-<div id="outline-container-sec-1" class="outline-2">
+<div id="outline-container-1" class="outline-2">
 <h2 id="sec-1">Warning</h2>
 <div class="outline-text-2" id="text-1">
-<p>
-Installation or deleting this module will cause lost of your current
-product images. Before doing it you have to export images from all
-product variants and then import it back after installation or
-deleting the module.
+
+<p>  Installation or deleting this module will cause lost of your current
+  product images. Before doing it you have to export images from all
+  product variants and then import it back after installation or
+  deleting the module.
 </p>
-</div>
 </div>
 
-<div id="outline-container-sec-2" class="outline-2">
+</div>
+
+<div id="outline-container-2" class="outline-2">
 <h2 id="sec-2">Export images</h2>
 <div class="outline-text-2" id="text-2">
-<p>
-Open <code>Products</code> menu, delete filters, select all products and click <code>More</code> / <code>Export</code>
+
+<p>  Open <code>Products</code> menu, delete filters, select all products and click <code>More</code> / <code>Export</code>
 </p>
+
 
 <img class="rounded shadow border" src="/images/odoo/module/product_image_filestore-1.png"/>
 
 <p>
-Then add <code>Image</code> field to export and click <code>Export to file</code>.
-</p>
+  Then add <code>Image</code> field to export and click <code>Export to file</code>.
 <img class="rounded shadow border" src="/images/odoo/module/product_image_filestore-2.png"/>
 
-<p>
-Do the same for Product variants:
-</p>
-<ul class="org-ul">
-<li>Open <code>Product Variants</code> menu, delete filters, select all products and click <code>More</code> / <code>Export</code> (see <a href="/images/odoo/module/product_image_filestore-4.png">screenshot</a>).
+  Do the same for Product variants:
+</p><ul>
+<li>Open <code>Product Variants</code> menu, delete filters, select all products and click <code>More</code> / <code>Export</code> (see @@html:&lt;a href="/images/odoo/module/product_image_filestore-4.png"&gt;@@screenshot@@html:&lt;/a&gt;@@).
 </li>
-<li>Add <code>Variant Image</code> field to export and click <code>Export to file</code> (see <a href="/images/odoo/module/product_image_filestore-5.png">screenshot</a>).
+<li>Add <code>Variant Image</code> field to export and click <code>Export to file</code> (see @@html:&lt;a href="/images/odoo/module/product_image_filestore-5.png"&gt;@@screenshot@@html:&lt;/a&gt;@@).
 </li>
 </ul>
-</div>
-</div>
 
 
-<div id="outline-container-sec-3" class="outline-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
 <h2 id="sec-3">Import images</h2>
 <div class="outline-text-2" id="text-3">
-<p>
-After instaling or uninstalling module import images back.  Open
-<code>Products</code> menu and click <code>Import</code> url. Then open your
-<code>product.template.csv</code>, click <code>Validate</code> and <code>Import</code>.
+
+<p>  After instaling or uninstalling module import images back.  Open
+  <code>Products</code> menu and click <code>Import</code> url. Then open your
+  <code>product.template.csv</code>, click <code>Validate</code> and <code>Import</code>.
 </p>
+
 
 <img class="rounded shadow border" src="/images/odoo/module/product_image_filestore-3.png"/>
 
 
-<p>
-Do the same for with menu <code>Product Variants</code> and <code>product.product.csv</code> file (see <a href="/images/odoo/module/product_image_filestore-6.png">screenshot</a>)
+<p>   
+  Do the same for with menu <code>Product Variants</code> and <code>product.product.csv</code> file (see @@html:&lt;a href="/images/odoo/module/product_image_filestore-6.png"&gt;@@screenshot@@html:&lt;/a&gt;@@)
 </p>
-</div>
 </div>
 
-<div id="outline-container-sec-4" class="outline-2">
+</div>
+
+<div id="outline-container-4" class="outline-2">
 <h2 id="sec-4">issue "field larger than field limit (131072)"</h2>
 <div class="outline-text-2" id="text-4">
-<p>
-During importing images, you can get error "field larger than field
-limit (131072)". It's a default restriction of a csv module. To fix
-it open file <code>openerp/tools/convert.py</code> and add
-<code>csv.field_size_limit(sys.maxsize)</code> after imports of a sys and csv
-modules. Like this:
+
+<p>  During importing images, you can get error "field larger than field
+  limit (131072)". It's a default restriction of a csv module. To fix
+  it open file <code>openerp/tools/convert.py</code> and add
+  <code>csv.field_size_limit(sys.maxsize)</code> after imports of a sys and csv
+  modules. Like this:
 </p>
+
 
 {% highlight python %}
 
@@ -108,17 +111,19 @@ import time
 {% endhighlight %}
 
 <p>
-<b>UPD</b> I have made module that do it <a href="https://github.com/yelizariev/addons-yelizariev/tree/8.0/import_csv_fix_field_limit">https://github.com/yelizariev/addons-yelizariev/tree/8.0/import_csv_fix_field_limit</a>
+<b>UPD</b> I have made module that do it <a href="https://github.com/yelizariev/addons-yelizariev/tree/8.0/import_csv_fix_field_limit">https://github.com/yelizariev/addons-yelizariev/tree/8.0/import\_csv\_fix\_field\_limit</a>
 </p>
-</div>
 </div>
 
-<div id="outline-container-sec-5" class="outline-2">
+</div>
+
+<div id="outline-container-5" class="outline-2">
 <h2 id="sec-5">Note for uninstalling</h2>
 <div class="outline-text-2" id="text-5">
+
+
 <p>
-After unintalling this module you also have to update <code>product</code>
-module. This cause updating of all dependent modules.
-</p>
-</div>
+  After unintalling this module you also have to update <code>product</code>
+  module. This cause updating of all dependent modules.
+</p></div>
 </div>

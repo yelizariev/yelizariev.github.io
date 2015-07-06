@@ -11,72 +11,66 @@ category: [odoo, development]
 <p>
 Odoo is opensource and has module structure. So, for the question 
 </p>
-
 <p>
-<b>&#x2013; Is it possible to change <i>this</i> in Odoo?</b>
+    <b>&ndash; Is it possible to change /this/ in Odoo?</b>
 </p>
-
 <p>
 the only answer is:
 </p>
-
 <p>
-<b>&#x2013; Yes, everything is possible to do in Odoo.</b>
+    <b>&ndash; Yes, everything is possible to do in Odoo.</b>
 </p>
-
 <p>
 OK, but how to do <i>that</i>? Where to find an instruction of how to implement some particular feature?
 </p>
-
 <p>
 Let's take an example. Imagine we need a custom link for product at
 website shop. By default link is generated from <code>Name</code> field, but you
 need to make it be generated from new <code>Name SEO</code> field.
 </p>
-
 <p>
 i.e. instead of this link:
-</p>
-<blockquote>
-<p>
-/shop/product/ipad-mini-8
+</p><blockquote>
+
+<p>/shop/product/ipad-mini-8
 </p>
 </blockquote>
+
+
 <p>
 there should be this one: 
-</p>
-<blockquote>
-<p>
-/shop/product/super-seo-link-for-ipad-mini-8
+</p><blockquote>
+
+<p>/shop/product/super-seo-link-for-ipad-mini-8
 </p>
 </blockquote>
+
+
 <p>
 where product has fields:
-</p>
-<blockquote>
-<p>
-Name: iPad Mini
-</p>
+</p><blockquote>
 
+<p>Name: iPad Mini
+</p>
 <p>
 Name SEO: Super SEO link for iPad Mini
 </p>
 </blockquote>
 
 
+
 <p>
 How to do that? Can we find the answer in <a href="https://www.odoo.com/documentation/8.0/">documentation</a>? I believe, it
 doesn't have an answer.
 </p>
-
 <p>
 So, let's try to do it ourself. We have Odoo source, so let's try to
 find a solution there.
 </p>
-
 <p>
 In our example we can start from seaching by <code>/shop/product/</code>:
 </p>
+
 
 {% highlight python %}
 ./addons/website_sale_options/controllers/main.py:10:    @http.route(['/shop/product/<model("product.template"):product>'], type='http', auth="public", website=True)
@@ -89,14 +83,12 @@ In our example we can start from seaching by <code>/shop/product/</code>:
 
 <p>
 These lines from <code>addons/website_sale/controllers/main.py</code> looks interesting:
-</p>
 {% highlight python %}
     @http.route(['/shop/product/<model("product.template"):product>'], type='http', auth="public", website=True)
     def product(self, product, category='', search='', **kwargs):
 {% endhighlight %}
 <img style="width:30%;float:left;" src="/images/odoo/development/source-diving-2.jpg"/>
 
-<p>
 What about <code>&lt;model("product.template"):product&gt;</code>? What is it? How it
 works? There should be a way for you to find the answer in
 source. Maybe you know about <code>werkzeug</code> library, maybe you know about
@@ -105,10 +97,10 @@ be a keyword to search. At the worst you can search by "model"
 keyword OR look through whole <code>website</code> module.
 </p>
 
+
 <div style="clear:both">
 <p>
 OK, I found the answer in <code>addons/website/models/ir_http.py</code>. Function <code>to_url</code> is what we need.
-</p>
 </div>
 
 {% highlight python %}
@@ -145,9 +137,7 @@ class ModelConverter(ir.ir_http.ModelConverter):
 
 {% endhighlight %}
 
-<p>
 where slug function is from <code>addons/website/models/website.py</code>
-</p>
 {% highlight python %}
 def slug(value):
     if isinstance(value, orm.browse_record):
@@ -164,10 +154,10 @@ def slug(value):
 <img style="margin:0 0 32px 0;" src="/images/odoo/development/source-diving-3.jpg"/>
 
 
-<p>
 So, that is. To make a custom link, we have to inherit ModelConverter
 and modify <code>to_url</code> function. Something like that:
 </p>
+
 
 
 {% highlight python %}
@@ -198,8 +188,7 @@ class ir_http(orm.AbstractModel):
 <p>
 This is the way I use in odoo development: 
 </p>
-
-<ul class="org-ul">
+<ul>
 <li>Dive into source
 </li>
 <li>Figure out how it works
@@ -207,4 +196,6 @@ This is the way I use in odoo development:
 <li>Create module to make changes you need
 </li>
 </ul>
+
+
 </div>
