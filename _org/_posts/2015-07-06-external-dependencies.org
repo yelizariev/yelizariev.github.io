@@ -1,0 +1,99 @@
+#+STARTUP: showall indent nolatexpreview
+#+OPTIONS: ^:nil toc:nil num:nil
+#+BEGIN_HTML
+---
+published: true
+comments: yes
+layout: post
+title: External dependencies in odoo
+tags: []
+category: [odoo, development]
+---
+#+END_HTML
+
+There is some non-obvious issue with external dependency in modules,
+which I want to say.
+
+* Case
+Let you need to use some python lib, which is not available in system
+by default and should be installed manually.
+
+So you just make import:
+
+#+BEGIN_HTML
+{% highlight python %}
+from pandas import DataFrame
+{% endhighlight %}
+#+END_HTML
+
+And maybe you mention required dependence in module's
+description. Very simple, right? But...
+
+* Issue
+The case could crash odoo completely.
+
+This is scenario when it could happen:
+
+ * User is not going to use your module with external dependency, but
+   your module available in Local Modules. E.g. if have a lot of
+   modules in your git repository and user just makes ~git clone~ and
+   add path to repo to ~addons-path~.
+ * User's system doesn't have required dependency
+ * Your module has ~static/~ folder, e.g. to place icon.png file.
+
+Then right after restarting server, user would get error:
+#+BEGIN_HTML
+{% highlight python %}
+2015-07-05 04:57:15,078 5760 ERROR ? werkzeug: Error on request:
+Traceback (most recent call last):
+  File "/usr/share/pyshared/werkzeug/serving.py", line 159, in run_wsgi
+    execute(app)
+  File "/usr/share/pyshared/werkzeug/serving.py", line 146, in execute
+    application_iter = app(environ, start_response)
+  File "/mnt/files/src/odoo/openerp/service/server.py", line 281, in app
+    return self.app(e, s)
+  File "/mnt/files/src/odoo/openerp/service/wsgi_server.py", line 216, in application
+    return application_unproxied(environ, start_response)
+  File "/mnt/files/src/odoo/openerp/service/wsgi_server.py", line 202, in application_unproxied
+    result = handler(environ, start_response)
+  File "/mnt/files/src/odoo/openerp/http.py", line 1244, in __call__
+    self.load_addons()
+  File "/mnt/files/src/odoo/openerp/http.py", line 1263, in load_addons
+    m = __import__('openerp.addons.' + module)
+  File "/mnt/files/src/odoo/openerp/modules/module.py", line 77, in load_module
+    mod = imp.load_module('openerp.addons.' + module_part, f, path, descr)
+  File "/mnt/files/git/addons-yelizariev/import_custom/__init__.py", line 1, in <module>
+    import wizard
+  File "/mnt/files/git/addons-yelizariev/import_custom/wizard/__init__.py", line 1, in <module>
+    import upload
+  File "/mnt/files/git/addons-yelizariev/import_custom/wizard/upload.py", line 14, in <module>
+    from pandas import DataFrame
+ImportError: No module named pandas
+{% endhighlight %}
+#+END_HTML
+
+* Suggestion
+
+Whenever you use external dependency, put your import code in try block
+
+#+BEGIN_HTML
+{% highlight python %}
+try:
+    from pandas import DataFrame
+except ImportError:
+    pass
+{% endhighlight %}
+#+END_HTML
+
+and add ~external_dependencies~ to module's manifest:
+
+#+BEGIN_HTML
+{% highlight python %}
+"external_dependencies": {
+    'python': ['pandas']
+},
+{% endhighlight %}
+#+END_HTML
+
+It will check dependencies before installing and will not raise
+ImportError if user doesn't use module.
