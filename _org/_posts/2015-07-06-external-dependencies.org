@@ -97,3 +97,5 @@ and add ~external_dependencies~ to module's manifest:
 
 It will check dependencies before installing and will not raise
 ImportError if user doesn't use module.
+* links
+ * [[https://github.com/odoo/odoo/issues/7507][issue #7507]]
